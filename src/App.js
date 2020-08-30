@@ -6,6 +6,9 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
+import { Layout, Menu } from "antd";
+
+const { Header, Content, Footer } = Layout;
 
 const Home = () => {
   return <div>home</div>;
@@ -16,7 +19,7 @@ const About = () => {
 };
 
 const Post = () => {
-  let { id } = useParams();
+  const { id } = useParams();
 
   return <div>post {id}</div>;
 };
@@ -24,24 +27,35 @@ const Post = () => {
 function App() {
   return (
     <Router>
-      <div>
-        <header>header</header>
-        <nav>
-          <Link to="/">home</Link>
-          <Link to="/about">about</Link>
-        </nav>
-        <Switch>
-          <Route path="/post/:id">
-            <Post />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
+      <Layout className="layout">
+        <Header>
+          <div className="logo" />
+          <Menu theme="dark" mode="horizontal">
+            <Menu.Item key="1">
+              <Link to="/">Home</Link>
+            </Menu.Item>
+            <Menu.Item key="2">
+              <Link to="/about">About</Link>
+            </Menu.Item>
+          </Menu>
+        </Header>
+        <Content style={{ padding: "0 50px" }}>
+          <Switch>
+            <Route path="/post/:id">
+              <Post />
+            </Route>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Content>
+        <Footer style={{ textAlign: "center" }}>
+          Ant Design ©2018 Created by Ant UED
+        </Footer>
+      </Layout>
     </Router>
   );
 }
